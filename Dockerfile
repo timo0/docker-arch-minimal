@@ -1,11 +1,13 @@
 FROM base/archlinux
 
 RUN pacman --noconfirm -Syy && \
-    pacman --noconfirm -S archlinux-keyring && \
+    pacman --noconfirm -S archlinux-keyring reflector && \
+    curl -o /etc/pacman.d/mirrorlist https://www.archlinux.org/mirrorlist/all/ && \
+    reflector --verbose --country 'Germany' -l 10 -p http --sort rate --save /etc/pacman.d/mirrorlist && \
     pacman --noconfirm -Syu && \
     pacman-db-upgrade && \
     pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh texlive-most && \
-    pacman --noconfirm -Sc 
+    pacman --noconfirm -Sc
 
 # Install corrade
 WORKDIR /tmp
