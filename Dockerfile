@@ -1,0 +1,49 @@
+FROM base/archlinux
+
+RUN pacman --noconfirm -Syy && \
+    pacman --noconfirm -S archlinux-keyring && \
+    pacman --noconfirm -Syu && \
+    pacman-db-upgrade && \
+    pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh texlive-most && \
+    pacman --noconfirm -Sc 
+
+# Install corrade
+WORKDIR /tmp
+RUN git clone https://github.com/mosra/corrade.git && \
+    cd corrade && mkdir build && cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr .. && \
+    make -j4 && make install && cd ../../ && \
+    rm -rf corrade
+
+# Install magnum
+WORKDIR /tmp
+RUN git clone https://github.com/mosra/magnum.git && \
+    cd magnum && \
+    mkdir build && \
+    cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DWITH_AUDIO=ON -DWITH_SDL2APPLICATION=ON -DWITH_GLXAPPLICATION=ON -DWITH_WINDOWLESSGLXAPPLICATION=ON -DWITH_GLXCONTEXT=ON -DWITH_MAGNUMFONT=ON -DWITH_MAGNUMFONTCONVERTER=ON -DWITH_OBJIMPORTER=ON -DWITH_TGAIMAGECONVERTER=ON -DWITH_TGAIMPORTER=ON -DWITH_WAVAUDIOIMPORTER=ON -DWITH_DISTANCEFIELDCONVERTER=ON -DWITH_FONTCONVERTER=ON -DWITH_MAGNUMINFO=ON .. && \
+    make -j4 && \
+    make install && \
+    cd ../../ && \
+    rm -rf magnum
+
+# Install magnum-plugins
+WORKDIR /tmp
+RUN git clone https://github.com/mosra/magnum-plugins.git && \
+    cd magnum-plugins && \
+    mkdir build && \
+    cd build && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DWITH_ANYAUDIOIMPORTER=ON -DWITH_ANYIMAGECONVERTER=ON -DWITH_ANYIMAGEIMPORTER=ON -DWITH_ANYSCENEIMPORTER=ON -DWITH_DDSIMPORTER=ON -DWITH_FREETYPEFONT=ON -DWITH_JPEGIMPORTER=ON -DWITH_MINIEXRIMAGECONVERTER=ON -DWITH_PNGIMPORTER=ON -DWITH_OPENGEXIMPORTER=ON -DWITH_STANFORDIMPORTER=ON -DWITH_STBIMAGEIMPORTER=ON -DWITH_STBPNGIMAGECONVERTER=ON -DWITH_STBVORBISAUDIOIMPORTER=ON .. && \
+    make -j4 && \
+    make install && \
+    cd ../../ && \
+    rm -rf magnum-plugins
+
+# Install Metropolis theme
+WORKDIR /tmp
+RUN git clone https://github.com/matze/mtheme.git && \
+    cd mtheme && \
+    make sty && \
+    make install && \
+    cd .. && \
+    rm -rf mtheme
