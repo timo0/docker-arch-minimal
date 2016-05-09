@@ -2,7 +2,6 @@ FROM base/archlinux
 
 RUN pacman --noconfirm -Syy && \
     pacman --noconfirm -S archlinux-keyring reflector && \
-    curl -o /etc/pacman.d/mirrorlist https://www.archlinux.org/mirrorlist/all/ && \
     reflector --verbose --country 'Germany' -l 10 -p http --sort rate --save /etc/pacman.d/mirrorlist && \
     pacman --noconfirm -Syu && \
     pacman-db-upgrade && \
