@@ -7,7 +7,7 @@ RUN cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && \
     pacman --noconfirm -S archlinux-keyring && \
     pacman --noconfirm -Syu && \
     pacman-db-upgrade && \
-    pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh texlive-most emacs-nox && \
+    pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh  && \
     pacman --noconfirm -Sc
 
 # Install corrade
@@ -41,12 +41,3 @@ RUN git clone https://github.com/mosra/magnum-plugins.git && \
     make install && \
     cd ../../ && \
     rm -rf magnum-plugins
-
-# Install Metropolis theme
-WORKDIR /tmp
-RUN git clone https://github.com/matze/mtheme.git && \
-    cd mtheme && \
-    make sty && \
-    make install && \
-    cd .. && \
-    rm -rf mtheme
