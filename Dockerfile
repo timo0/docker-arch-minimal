@@ -7,7 +7,7 @@ RUN cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && \
     pacman --noconfirm -S archlinux-keyring && \
     pacman --noconfirm -Syu && \
     pacman-db-upgrade && \
-    pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh texlive-most && \
+    pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh texlive-most emacs-nox && \
     pacman --noconfirm -Sc
 
 # Install corrade
