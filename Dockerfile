@@ -1,13 +1,7 @@
-FROM base/archlinux
+FROM pritunl/archlinux
 
-RUN cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && \
-    sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup && \
-    rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist && \
-    pacman --noconfirm -Syy && \
-    pacman --noconfirm -S archlinux-keyring && \
-    pacman --noconfirm -Syu && \
-    pacman-db-upgrade && \
-    pacman --noconfirm -S base-devel cmake git libunistring sdl2 openal freetype2 libpng libjpeg openssh  && \
+RUN pacman --noconfirm -Syu && \
+    pacman --noconfirm -S base-devel cmake git sdl2 openal freetype2 libpng libjpeg openssh  && \
     pacman --noconfirm -Sc
 
 # Install corrade
