@@ -1,7 +1,7 @@
 FROM pritunl/archlinux
 
 RUN pacman --noconfirm -Syu && \
-    pacman --noconfirm -S base-devel cmake git sdl2 openal freetype2 libpng libjpeg openssh  && \
+    pacman --noconfirm -S base-devel cmake git sdl2 openal freetype2 libpng libjpeg openssh subversion  && \
     pacman --noconfirm -Sc
 
 # Install corrade
