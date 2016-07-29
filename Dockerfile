@@ -1,7 +1,7 @@
 FROM pritunl/archlinux
 
 RUN pacman --noconfirm -Syu && \
-    pacman --noconfirm -S base-devel clang cmake git sdl2 sfml openal freetype2 libpng libjpeg openssh subversion jsoncpp boost boost-libs && \
+    pacman --noconfirm -S base-devel clang cmake git sdl2 sfml openal freetype2 libpng libjpeg openssh subversion jsoncpp boost boost-libs python2-pip && \
     pacman --noconfirm -Sc
 
 # Install lcov
@@ -9,6 +9,9 @@ WORKDIR /tmp
 RUN git clone https://github.com/linux-test-project/lcov.git && \
     cd lcov && make && make install && cd .. && \
     rm -rf lcov
+
+# Install gcovr
+RUN pip2 install gcovr  
 
 # Install corrade
 WORKDIR /tmp
