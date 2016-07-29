@@ -4,6 +4,12 @@ RUN pacman --noconfirm -Syu && \
     pacman --noconfirm -S base-devel clang cmake git sdl2 sfml openal freetype2 libpng libjpeg openssh subversion jsoncpp boost boost-libs && \
     pacman --noconfirm -Sc
 
+# Install lcov
+WORKDIR /tmp
+RUN git clone https://github.com/linux-test-project/lcov.git && \
+    cd lcov && make && make install && cd .. && \
+    rm -rf lcov
+
 # Install corrade
 WORKDIR /tmp
 RUN git clone https://github.com/mosra/corrade.git && \
