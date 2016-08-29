@@ -1,7 +1,7 @@
 FROM pritunl/archlinux
 
 RUN pacman --noconfirm -Syu && \
-    pacman --noconfirm -S base-devel clang cmake git sdl2 sfml openal freetype2 libpng libjpeg openssh subversion jsoncpp boost boost-libs python2-pip && \
+    pacman --noconfirm -S base-devel clang cmake git sdl2 sfml openal freetype2 libpng libjpeg openssh subversion jsoncpp boost boost-libs python2-pip glm && \
     pacman --noconfirm -Sc
 
 # Install lcov
